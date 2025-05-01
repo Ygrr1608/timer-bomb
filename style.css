@@ -1,0 +1,85 @@
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.5s ease;
+  }
+  .tela-inicial, .jogo {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .tela-inicial {
+    display: flex;
+  }
+  .tela-inicial select {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 1em;
+  }
+  button {
+    padding: 1em 2em;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  .painel {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    gap: 10px;
+    margin: 20px auto;
+  }
+  .painel button {
+    font-size: 1.5em;
+    background: #222;
+    color: white;
+    transition: background 0.3s;
+  }
+  .entrada {
+    font-size: 2em;
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+  }
+  #mensagem {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  #resetBtn {
+    margin-top: 20px;
+    display: none;
+  }
+  #historico {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 300px;
+  }
+  .linha-historico span {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .blur {
+    filter: blur(8px);
+  }
