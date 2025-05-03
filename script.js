@@ -51,8 +51,9 @@ function iniciarJogo() {
           tentativasRestantes = 3;
           break;
   }
-  document.getElementById('telaInicial').style.display = 'none';
-  document.getElementById('jogo').style.display = 'flex';
+  document.querySelector('.tela-inicial').style.display = 'none';
+  document.querySelector('.jogo').style.display = 'flex';
+  document.getElementById('homeBtn').style.display = 'block';
   iniciarTimer();
   tocarAudio(0); //tocar audio de inicio
   setTimeout(() => tocarAudio(1), 2000); //tocar audio de nivel 1
@@ -105,6 +106,8 @@ function tentarSenha() {
 
   verificarCoresDosBotoes(senhaTentada);
   adicionarAoHistorico(senhaTentada);
+  tentativa = "";
+  atualizarEntrada()
 
   if (senhaTentada === senhaCorreta) {
     mostrarMensagem("Bomba desarmada com sucesso!", "lightgreen");
@@ -305,4 +308,23 @@ function mostrarDicaDigito() {
   } else {
     mostrarMensagem("Todos os dígitos já foram revelados!", "orange");
   }
+}
+function voltarParaTelaInicial() {
+  document.querySelector('.tela-inicial').style.display = 'flex';
+  document.querySelector('.jogo').style.display = 'none';
+  document.getElementById('homeBtn').style.display = 'none';
+  resetarJogo();
+
+  audios.forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+
+  tentativa = "";
+  autalizarEntrada();
+  document.getElementById('mensagem').textContent = "";
+  document.getElementById('hidtorico').innerHTML = "";
+  document.getElementById('resetBtn').style.display = 'none';
+
+  gerarSenha();
 }

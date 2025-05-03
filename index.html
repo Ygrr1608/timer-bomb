@@ -16,20 +16,24 @@
         <button onclick="iniciarJogo()">Começar</button>
       </div>
       <div class="jogo" id="jogo">
-<div style="margin-top: 20px;">
-    <button id="dicaPosicao" onclick="mostrarDicaPosicao()">Dica de Posição Correta</button>
-    <button id="dicaDigito" onclick="mostrarDicaDigito()">Dica de Dígito Existente</button>
-  </div>
-  
+        <button id="homeBtn" onclick="voltarParaTelaInicial()" tittle="Voltar à tela inicial">HOME</button>
+
+        <div style="margin-top: 20px;">
+          <button id="dicaPosicao" onclick="mostrarDicaPosicao()">Dica de Posição Correta</button>
+          <button id="dicaDigito" onclick="mostrarDicaDigito()">Dica de Dígito Existente</button>
+        </div>
+        
         <h1>Desarme a Bomba!</h1>
         <div id="timer">02:00</div>
         <div class="entrada" id="entrada"></div>
         <div class="painel" id="painel"></div>
         <button onclick="tentarSenha()">Desarmar</button>
         <div id="mensagem"></div>
-        <div     <button id="resetBtn" onclick="resetarJogo()">Reiniciar</button>
-        <audio id="explosaoAudio" src="https://www.soundjay.com/explosion/sounds/explosion-01.mp3"></audio>id="historico"></div>
-    
+        <div id="historico"></div>
+        <button id="resetBtn" onclick="resetarJogo()">Reiniciar</button>
+        <audio id="explosaoAudio" src="https://www.soundjay.com/explosion/sounds/explosion-01.mp3"></audio>
+      </div>
+        
       <script src="script.js"></script>
 </body>
 </html>

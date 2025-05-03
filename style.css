@@ -44,6 +44,21 @@ body {
     border: none;
     border-radius: 5px;
   }
+  #homeBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 2em;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+  }
+  #homeBtn:hover {
+    color: #ffcc00;
+  }
   .painel {
     display: grid;
     grid-template-columns: repeat(3, 60px);
@@ -73,6 +88,8 @@ body {
     margin-top: 20px;
     text-align: left;
     max-width: 300px;
+    display: flex;
+    flex-direction: column-reverse;
   }
   .linha-historico span {
     display: inline-block;
