@@ -2,10 +2,23 @@ let senhaCorreta = gerarSenha();
 let tentativa = "";
 let tentativasRestantes = 5;
 let tempoRestante = 120;
-let intervalo;
+let intervalo = null;
 let posicoesFixas = [null, null, null, null];
 let dificuldadeSelecionada= 'facil';
 let audioAtual = null;
+let senhaModoAtivo = false;
+let senhaDefinida = '';
+
+document.getElementById('dificuldade').addEventListener('change', function() {
+  const campoSenha = document.getElementById('campoSenha');
+  if (this.value === 'senha') {
+    campoSenha.style.display = 'block';
+    senhaModoAtivo = true;
+  } else {
+    campoSenha.style.display = 'none';
+    senhaModoAtivo = false;
+  }
+});
 
 const audios = [
   new Audio('audios/audio_iniciovozbomb.mp3'),// inicio
@@ -36,7 +49,28 @@ function tocarAudio(indice) {
 
 function iniciarJogo() {
   dificuldadeSelecionada = document.getElementById('dificuldade').value;
+  
+  if (intervalo) {
+    clearInterval(intervalo);
+    intervalo = null;
+  }
+  intervalo = setInterval(() => {
+    //cronometro
+  }, 1000)
 
+  if (dificuldadeSelecionada === 'senha') {
+    const inputSenha = document.getElementById('senhaJogador').value;
+
+    if (inputSenha.length !== 4) {
+      alert("senha deve ter 4 digitos.");
+      return;
+    }
+
+    senhaDefinida = inputSenha;
+    tempoRestante = 120;
+    tentativasRestantes = 5;
+    senhaCorreta = senhaDefinida;
+  } else {
   switch (dificuldadeSelecionada) {
     case 'facil':
       tempoRestante = 120;
@@ -51,6 +85,9 @@ function iniciarJogo() {
           tentativasRestantes = 3;
           break;
   }
+  senhaCorreta = gerarSenha();
+}
+
   document.querySelector('.tela-inicial').style.display = 'none';
   document.querySelector('.jogo').style.display = 'flex';
   document.getElementById('homeBtn').style.display = 'block';
@@ -240,12 +277,38 @@ function resetarJogo() {
     audioAtual.currentTime = 0;
   }
   audioAtual = null;
-  senhaCorreta = gerarSenha();
   tentativa = "";
-  tentativasRestantes = 5;
-  tempoRestante = 120;
   posicoesFixas = [null, null, null, null];
-  dicaposicaoUsada = false;
+  dificuldadeSelecionada = document.getElementById('dificuldade').value;
+
+  if (dificuldadeSelecionada === 'senha') {
+    const inputSenha = document.getElementById('senhaJogador').value;
+    senhaCorreta = inputSenha || gerarSenha();
+    tempoRestante = 120;
+    tentativasRestantes = 5;
+
+    document.getElementById('campoSenha').style.display = 'block';
+  } else {
+    switch (dificuldadeSelecionada) {
+      case 'facil':
+        tempoRestante = 120;
+        tentativasRestantes = 5;
+        break;
+      case 'medio':
+        tempoRestante = 60;
+        tentativasRestantes = 5;
+        break;
+      case 'dificil':
+        tempoRestante = 30;
+        tentativasRestantes = 3;
+        break;
+        default:
+        tempoRestante = 120;
+        tentativasRestantes = 5;
+    }
+    senhaCorreta = gerarSenha();
+  }
+  dicaPosicaoUsada = false;
   dicaDigitoUsada = false;
   clearInterval(intervalo);
   document.getElementById('entrada').innerText = "";
@@ -264,6 +327,11 @@ function resetarJogo() {
       btn.disabled = false;
     }
   }
+
+  senhaDefinida = '';
+  senhaModoAtivo = false;
+  document.getElementById('senhaJogador').value = '';
+  document.getElementById('campoSenha').style.display = 'none';
 }
 
 document.addEventListener("keydown", function(event) {
@@ -313,6 +381,8 @@ function voltarParaTelaInicial() {
   document.querySelector('.tela-inicial').style.display = 'flex';
   document.querySelector('.jogo').style.display = 'none';
   document.getElementById('homeBtn').style.display = 'none';
+  clearInterval(intervalo);
+  tempoRestante = 0;
   resetarJogo();
 
   audios.forEach(audio => {
@@ -321,10 +391,8 @@ function voltarParaTelaInicial() {
   });
 
   tentativa = "";
-  autalizarEntrada();
+  atualizarEntrada();
   document.getElementById('mensagem').textContent = "";
-  document.getElementById('hidtorico').innerHTML = "";
+  document.getElementById('historico').innerHTML = "";
   document.getElementById('resetBtn').style.display = 'none';
-
-  gerarSenha();
 }

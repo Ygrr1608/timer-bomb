@@ -37,6 +37,12 @@ body {
     padding: 10px;
     font-size: 1em;
   }
+  #campoSenha input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+  }
   button {
     padding: 1em 2em;
     font-size: 1.2em;
@@ -46,15 +52,16 @@ body {
   }
   #homeBtn {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    font-size: 2em;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em;
     background: none;
     border: none;
     color: white;
     cursor: pointer;
     display: none;
     z-index: 1000;
+    padding: 0.2em 0.4em;
   }
   #homeBtn:hover {
     color: #ffcc00;
